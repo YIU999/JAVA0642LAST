@@ -4,6 +4,10 @@ package com.example.pointsystem.model;
 import jakarta.persistence.*;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
 
 public class User {
