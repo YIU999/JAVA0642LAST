@@ -1,4 +1,3 @@
-
 package com.example.pointsystem.model;
 
 import jakarta.persistence.*;
@@ -13,30 +12,24 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users")
-
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String username;
+
+    @Column(nullable = false)
     private String password;
+
     private int points;
 
-    public User() {}
-
+    // 선택적 생성자 (username, password만 받는 생성자)
     public User(String username, String password) {
         this.username = username;
         this.password = password;
         this.points = 0;
     }
-
-    public Long getId() { return id; }
-    public String getUsername() { return username; }
-    public String getPassword() { return password; }
-    public int getPoints() { return points; }
-
-    public void setPoints(int points) { this.points = points; }
-    public void setUsername(String username) { this.username = username; }
-    public void setPassword(String password) { this.password = password; }
 }
