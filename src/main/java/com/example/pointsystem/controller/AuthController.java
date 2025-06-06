@@ -18,30 +18,46 @@ public class AuthController {
     @Autowired
     private UserRepository userRepository;
 
+    // ✅ 로그인
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
-        Optional<User> found = userRepository.findByUsername(user.getUsername());
-        if (found.isPresent() && found.get().getPassword().equals(user.getPassword())) {
-            Map<String, Object> response = new HashMap<>();
-            response.put("username", found.get().getUsername());
-            response.put("points", found.get().getPoints());
-            return ResponseEntity.ok(response);
-        } else {
-            return ResponseEntity.status(401).body("Invalid credentials");
+        try {
+            Optional<User> found = userRepository.findByUsername(user.getUsername());
+
+            if (found.isPresent() && found.get().getPassword().equals(user.getPassword())) {
+                Map<String, Object> response = new HashMap<>();
+                response.put("username", found.get().getUsername());
+                response.put("points", found.get().getPoints());
+                return ResponseEntity.ok(response);
+            } else {
+                return ResponseEntity.status(401).body("Invalid credentials");
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // 서버 콘솔에 출력
+            return ResponseEntity.status(500).body("로그인 중 서버 오류 발생");
         }
     }
 
+    // ✅ 회원가입
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody User user) {
-        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
-            return ResponseEntity.badRequest().body("이미 존재하는 사용자입니다.");
-        }
-        user.setPoints(0);
-        userRepository.save(user);
+        try {
+            Optional<User> existing = userRepository.findByUsername(user.getUsername());
+            if (existing.isPresent()) {
+                return ResponseEntity.badRequest().body("이미 존재하는 사용자입니다.");
+            }
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("username", user.getUsername());
-        response.put("points", user.getPoints());
-        return ResponseEntity.ok(response);
+            user.setPoints(0);
+            userRepository.save(user);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("username", user.getUsername());
+            response.put("points", user.getPoints());
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            e.printStackTrace(); // 서버 콘솔에 출력
+            return ResponseEntity.status(500).body("회원가입 중 서버 오류 발생");
+        }
     }
 }
