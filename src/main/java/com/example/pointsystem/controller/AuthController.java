@@ -10,9 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@CrossOrigin(origins = "https://javateam2-front.onrender.com", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "*")
 public class AuthController {
 
     @Autowired
@@ -30,10 +30,10 @@ public class AuthController {
                 response.put("points", found.get().getPoints());
                 return ResponseEntity.ok(response);
             } else {
-                return ResponseEntity.status(401).body("Invalid credentials");
+                return ResponseEntity.status(401).body("아이디 또는 비밀번호가 올바르지 않습니다.");
             }
         } catch (Exception e) {
-            e.printStackTrace(); // 서버 콘솔에 출력
+            e.printStackTrace(); // 콘솔 출력
             return ResponseEntity.status(500).body("로그인 중 서버 오류 발생");
         }
     }
@@ -56,7 +56,7 @@ public class AuthController {
 
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            e.printStackTrace(); // 서버 콘솔에 출력
+            e.printStackTrace();
             return ResponseEntity.status(500).body("회원가입 중 서버 오류 발생");
         }
     }
