@@ -4,28 +4,25 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
-@Entity // 이 클래스가 JPA 엔티티임을 나타냅니다.
-@Table(name = "user_rewards") // 데이터베이스 테이블 이름을 'user_rewards'로 명시합니다.
+@Entity
+@Table(name = "user_rewards")
 public class UserReward {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // 구매 기록의 고유 식별자
+    private Long id;
+    @Column(nullable = false)
+    private String username;
 
     @Column(nullable = false)
-    private String username; // 보상을 구매한 사용자의 아이디
-
-    @Column(nullable = false)
-    private String rewardName; // 구매한 보상의 이름
+    private String rewardName;
 
     @Column(name = "purchase_date", nullable = false)
-    private LocalDateTime purchaseDate; // 보상을 구매한 일시
+    private LocalDateTime purchaseDate;
 
-    // --- 기본 생성자 ---
     public UserReward() {
     }
 
-    // --- Getter와 Setter 메서드 ---
     public Long getId() {
         return id;
     }
