@@ -30,7 +30,8 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(Arrays.asList(
                 "http://localhost:5173",
-                "https://javafront-final.onrender.com"  // 💡 여기를 정확한 프론트엔드 URL로 수정
+                "https://javafront-final.onrender.com",   // 기존 URL
+                "https://javafront-final-1.onrender.com"  // 💡 새로 확인된 정확한 URL 추가
         ));
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(Arrays.asList("*"));
