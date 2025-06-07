@@ -37,5 +37,9 @@ public class StudySession {
             return null;
     }
 
+    public void setStartTime(LocalDateTime now) {
+
+    }
+
     // getters, setters
 }

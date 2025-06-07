@@ -17,4 +17,8 @@ public class PointService {
                 .map(User::getPoints)
                 .orElse(0);
     }
+
+    public void addPoints(Long id, long pointsEarned) {
+
+    }
 }
