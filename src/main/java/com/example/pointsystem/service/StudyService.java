@@ -35,4 +35,8 @@ public class StudyService {
             userRepo.save(user);
         });
     }
+
+    public void startStudySession(String username) {
+
+    }
 }
